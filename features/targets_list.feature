@@ -6,7 +6,7 @@ Feature:
     Scenario: With no targets
         Given 0 targets exist
         When I visit the target page
-        Then I should see 0 targets
+        Then I should see no targets configured
 
     Scenario: With targets
         Given 3 targets exist
