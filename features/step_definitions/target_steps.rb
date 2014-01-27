@@ -39,7 +39,7 @@ Then(/^I should be on the target detail page for "(.*?)"$/) do |name|
 end
 
 Then(/^I should see target name cannot be blank$/) do
-  within(".input.target_name") do
-    expect(page).to have_content("can't be blank")
+  within("#error_explanation") do
+    expect(page).to have_content("Name can't be blank")
   end
 end

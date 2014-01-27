@@ -42,7 +42,7 @@ SimpleForm.setup do |config|
     ## Inputs
     b.use :label_input
     b.use :hint,  wrap_with: { tag: :span, class: :hint }
-    b.use :error, wrap_with: { tag: :span, class: :error }
+    # b.use :error, wrap_with: { tag: :span, class: :error }
   end
 
   # The default wrapper to be used by the FormBuilder.
@@ -61,6 +61,7 @@ SimpleForm.setup do |config|
   # :first lists the first message for each field.
   # Use :to_sentence to list all errors for each field.
   # config.error_method = :first
+  config.error_method = :to_sentence
 
   # Default tag used for error notification helper.
   config.error_notification_tag = :div
