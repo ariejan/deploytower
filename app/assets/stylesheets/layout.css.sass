@@ -9,13 +9,16 @@ a
 #page
   @include outer-container
 
-header#header
-  @include span-columns(12)
-  border-bottom: 2px solid $highlight-color
-  margin-top: 1em
-  margin-bottom: 1em
-  text-align: center
+  header#header
+    @include span-columns(12)
+    border-bottom: 2px solid $highlight-color
+    margin-top: 1em
+    margin-bottom: 1em
+    text-align: center
 
-section#content
-  @include span-columns(12)
+  section#content
+    @include span-columns(12)
+
+    .actions
+      float: right
 

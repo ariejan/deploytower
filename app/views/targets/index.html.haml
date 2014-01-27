@@ -1,3 +1,6 @@
+.actions
+  = link_to "Add Target", new_target_path, class: "btn"
+
 - if @targets.any?
   %ol#targets
     = render @targets
