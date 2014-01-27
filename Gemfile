@@ -42,6 +42,15 @@ group :development do
   gem 'haml-rails'
 end
 
+group :test do
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.14.1'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
