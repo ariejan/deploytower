@@ -1,0 +1,20 @@
+#error_explanation
+  margin-top: $base-line-height
+  margin-bottom: $base-line-height / 2
+  padding: $base-line-height / 2
+
+  background-color: $error-color
+  color: darken($error-color, 60)
+
+  ul
+    list-style: square
+    margin-left: 2em
+
+.field_with_errors
+  label
+    color: darken($error-color, 60)
+
+  #{$all-text-inputs}
+    background-color: $error-color
+    border: 1px solid darken($error-color, 60)
+

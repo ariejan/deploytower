@@ -10,6 +10,14 @@ When(/^I click on a target$/) do
   click_link Target.first.name
 end
 
+When(/^I add a new target named "(.*?)"$/) do |name|
+  create_target_with_name(name)
+end
+
+When(/^I add a new target without a name$/) do
+  create_target_with_name("")
+end
+
 Then(/^I should see no targets configured$/) do
   expect(page).to have_content("No targets configured")
 end
@@ -22,6 +30,16 @@ end
 
 Then(/^I should be on the target detail page$/) do
   target = Target.first
-  expect(current_path).to eql("/targets/#{target.id}")
-  expect(page).to have_content(target.name)
+  expect_target_details_page(target)
+end
+
+Then(/^I should be on the target detail page for "(.*?)"$/) do |name|
+  target = Target.where(name: name).first
+  expect_target_details_page(target)
+end
+
+Then(/^I should see target name cannot be blank$/) do
+  within("#error_explanation") do
+    expect(page).to have_content("Name can't be blank")
+  end
 end

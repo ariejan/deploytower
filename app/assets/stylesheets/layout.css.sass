@@ -6,16 +6,21 @@ a
   text-decoration: none
   color: $highlight-color
 
+h1, h2, h3, h4, h5, h6
+  color: $highlight-color
+
 #page
   @include outer-container
 
-header#header
-  @include span-columns(12)
-  border-bottom: 2px solid $highlight-color
-  margin-top: 1em
-  margin-bottom: 1em
-  text-align: center
+  header#header
+    @include span-columns(12)
+    border-bottom: 2px solid $highlight-color
+    margin-top: 1em
+    margin-bottom: 1em
+    text-align: center
 
-section#content
-  @include span-columns(12)
+  section#content
+    @include span-columns(12)
 
+    .actions
+      float: right
