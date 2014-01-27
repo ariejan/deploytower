@@ -1,0 +1,21 @@
+body
+  background: $bg-color
+  color: $text-color
+
+a
+  text-decoration: none
+  color: $highlight-color
+
+#page
+  @include outer-container
+
+header#header
+  @include span-columns(12)
+  border-bottom: 2px solid $highlight-color
+  margin-top: 1em
+  margin-bottom: 1em
+  text-align: center
+
+section#content
+  @include span-columns(12)
+

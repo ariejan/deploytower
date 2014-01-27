@@ -7,8 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="page">
+    <header id="header">
+      <a href="/"><h1>DeployTower</h1></a>
+    </header>
+    <section id="content">
+      <%= yield %>
+    </section>
+  </div>
 </body>
 </html>
