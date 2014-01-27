@@ -13,6 +13,11 @@ Feature:
         When I visit the target page
         Then I should see all targets
 
+    Scenario: Targets are ordered alphabetically
+        Given 2 randomly ordered targets exist
+        When I visit the target page
+        Then I see all targets are sorted alphabetically
+
     Scenario: Click through to target detail page
         Given 1 target exists
         When I visit the target page

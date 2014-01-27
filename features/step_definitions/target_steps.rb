@@ -2,6 +2,11 @@ Given(/^(\d+) targets? exists?$/) do |count|
   FactoryGirl.create_list(:target, count.to_i)
 end
 
+Given(/^2 randomly ordered targets exist$/) do
+  create_target_with_name("zzzz")
+  create_target_with_name("aaaa")
+end
+
 When(/^I visit the target page$/) do
   visit "/"
 end
@@ -42,4 +47,9 @@ Then(/^I should see target name cannot be blank$/) do
   within("#error_explanation") do
     expect(page).to have_content("Name can't be blank")
   end
+end
+
+Then(/^I see all targets are sorted alphabetically$/) do
+  targets = Target.order("name ASC")
+  expect(targets.first.name).to appear_before(targets.last.name)
 end

@@ -48,6 +48,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
+  gem 'orderly'
 end
 
 group :development, :test do
