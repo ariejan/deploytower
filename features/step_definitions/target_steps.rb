@@ -9,3 +9,9 @@ end
 Then(/^I should see no targets configured$/) do
   expect(page).to have_content("No targets configured")
 end
+
+Then(/^I should see all targets$/) do
+  Target.find_each do |target|
+    expect(page).to have_content(target.name)
+  end
+end

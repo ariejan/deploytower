@@ -1,1 +1,7 @@
-No targets configured
+- if @targets.any?
+  %ol#targets
+    = render @targets
+
+- else
+  %p
+    No targets configured

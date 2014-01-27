@@ -11,7 +11,7 @@ Feature:
     Scenario: With targets
         Given 3 targets exist
         When I visit the target page
-        Then I should see 3 targets
+        Then I should see all targets
 
     Scenario: Click through to target detail page
         Given 1 target exists
