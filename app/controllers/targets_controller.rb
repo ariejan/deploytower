@@ -16,6 +16,8 @@ class TargetsController < ApplicationController
 
     if @target.save
       redirect_to @target
+    else
+      render :new
     end
   end
 

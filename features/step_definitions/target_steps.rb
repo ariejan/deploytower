@@ -14,6 +14,10 @@ When(/^I add a new target named "(.*?)"$/) do |name|
   create_target_with_name(name)
 end
 
+When(/^I add a new target without a name$/) do
+  create_target_with_name("")
+end
+
 Then(/^I should see no targets configured$/) do
   expect(page).to have_content("No targets configured")
 end
@@ -32,4 +36,10 @@ end
 Then(/^I should be on the target detail page for "(.*?)"$/) do |name|
   target = Target.where(name: name).first
   expect_target_details_page(target)
+end
+
+Then(/^I should see target name cannot be blank$/) do
+  within(".input.target_name") do
+    expect(page).to have_content("can't be blank")
+  end
 end
