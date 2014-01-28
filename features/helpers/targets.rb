@@ -11,6 +11,11 @@ module Helpers
       fill_in "Name", with: name
       click_button "Create Target"
     end
+
+    def destroy_target(target)
+      visit "/targets/#{target.id}"
+      click_button "Delete"
+    end
   end
 end
 

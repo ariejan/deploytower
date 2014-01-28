@@ -21,6 +21,13 @@ class TargetsController < ApplicationController
     end
   end
 
+  def destroy
+    @target = Target.find(params[:id])
+    @target.destroy
+
+    redirect_to root_path
+  end
+
   private
 
   def target_params
