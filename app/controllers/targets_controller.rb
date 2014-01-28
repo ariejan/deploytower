@@ -21,6 +21,20 @@ class TargetsController < ApplicationController
     end
   end
 
+  def edit
+    @target = Target.find(params[:id])
+  end
+
+  def update
+    @target = Target.find(params[:id])
+
+    if @target.update_attributes(target_params)
+      redirect_to @target
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @target = Target.find(params[:id])
     @target.destroy

@@ -1,0 +1,5 @@
+= simple_form_for @target do |f|
+  = render 'shared/error_messages', object: f.object
+
+  = f.input :name
+  = f.button :submit

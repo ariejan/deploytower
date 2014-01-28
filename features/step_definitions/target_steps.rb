@@ -27,6 +27,10 @@ When(/^I add a new target without a name$/) do
   create_target_with_name("")
 end
 
+When(/^I update the name of "(.*?)" to "(.*?)"$/) do |old, new|
+  update_target_name(old, new)
+end
+
 When(/^I destroy the target "(.*?)"$/) do |name|
   target = Target.where(name: name).first
   destroy_target(target)
@@ -61,6 +65,13 @@ end
 Then(/^I see all targets are sorted alphabetically$/) do
   targets = Target.order("name ASC")
   expect(targets.first.name).to appear_before(targets.last.name)
+end
+
+Then(/^I should see "(.*?)" in the overview$/) do |name|
+  visit "/"
+  within("#targets") do
+    expect(page).to have_content(name)
+  end
 end
 
 Then(/^I should see the target "(.*?)" no longer exists$/) do |name|
