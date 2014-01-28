@@ -2,6 +2,10 @@ Given(/^(\d+) targets? exists?$/) do |count|
   FactoryGirl.create_list(:target, count.to_i)
 end
 
+Given(/^no targets exist$/) do
+  step "0 targets exist"
+end
+
 Given(/^a target "(.*?)" exists$/) do |name|
   FactoryGirl.create(:target, name: name)
 end
