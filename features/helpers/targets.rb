@@ -12,6 +12,14 @@ module Helpers
       click_button "Create Target"
     end
 
+    def update_target_name(old, new)
+      target = Target.where(name: old).first
+
+      visit "/targets/#{target.id}/edit"
+      fill_in "Name", with: new
+      click_button "Update Target"
+    end
+
     def destroy_target(target)
       visit "/targets/#{target.id}"
       click_button "Delete"
