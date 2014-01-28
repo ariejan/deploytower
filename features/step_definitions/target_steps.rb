@@ -2,6 +2,10 @@ Given(/^(\d+) targets? exists?$/) do |count|
   FactoryGirl.create_list(:target, count.to_i)
 end
 
+Given(/^a target "(.*?)" exists$/) do |name|
+  FactoryGirl.create(:target, name: name)
+end
+
 Given(/^2 randomly ordered targets exist$/) do
   create_target_with_name("zzzz")
   create_target_with_name("aaaa")
@@ -21,6 +25,11 @@ end
 
 When(/^I add a new target without a name$/) do
   create_target_with_name("")
+end
+
+When(/^I destroy the target "(.*?)"$/) do |name|
+  target = Target.where(name: name).first
+  destroy_target(target)
 end
 
 Then(/^I should see no targets configured$/) do
@@ -52,4 +61,9 @@ end
 Then(/^I see all targets are sorted alphabetically$/) do
   targets = Target.order("name ASC")
   expect(targets.first.name).to appear_before(targets.last.name)
+end
+
+Then(/^I should see the target "(.*?)" no longer exists$/) do |name|
+  expect(current_path).to eql("/")
+  expect(page).to have_no_content(name)
 end
