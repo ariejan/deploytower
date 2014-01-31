@@ -45,6 +45,6 @@ class TargetsController < ApplicationController
   private
 
   def target_params
-    params.require(:target).permit(:name)
+    params.require(:target).permit(:name, :heroku_app_name, :heroku_git_remote, :git_remote, :git_default_branch, :url)
   end
 end

@@ -11,8 +11,8 @@ Given(/^a target "(.*?)" exists$/) do |name|
 end
 
 Given(/^2 randomly ordered targets exist$/) do
-  create_target_with_name("zzzz")
-  create_target_with_name("aaaa")
+  FactoryGirl.create(:target, name: "zzzz")
+  FactoryGirl.create(:target, name: "aaaa")
 end
 
 When(/^I visit the target page$/) do
@@ -24,11 +24,11 @@ When(/^I click on a target$/) do
 end
 
 When(/^I add a new target named "(.*?)"$/) do |name|
-  create_target_with_name(name)
+  create_target(name: name)
 end
 
-When(/^I add a new target without a name$/) do
-  create_target_with_name("")
+When(/^I add a new target without attribute "(.*?)"$/) do |attribute|
+  create_target(attribute => "")
 end
 
 When(/^I update the name of "(.*?)" to "(.*?)"$/) do |old, new|
@@ -56,13 +56,14 @@ Then(/^I should be on the target detail page$/) do
 end
 
 Then(/^I should be on the target detail page for "(.*?)"$/) do |name|
+  puts Target.all.inspect
   target = Target.where(name: name).first
   expect_target_details_page(target)
 end
 
-Then(/^I should see target name cannot be blank$/) do
+Then(/^I should see target "(.*?)" cannot be blank$/) do |attribute|
   within("#error_explanation") do
-    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("#{attribute.humanize} can't be blank")
   end
 end
 

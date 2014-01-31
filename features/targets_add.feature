@@ -10,10 +10,16 @@ Feature:
 
     Scenario Outline: Attribute presence validation
         Given no targets exist
-        When I add a new target without a <attribute>
-        Then I should see target <attribute> cannot be blank
+        When I add a new target without attribute "<attribute>"
+        Then I should see target "<attribute>" cannot be blank
 
         Examples:
-            | attribute |
-            | name |
+            | attribute          |
+            | name               |
+            | heroku_app_name    |
+            | heroku_git_remote  |
+            | git_remote         |
+            | git_default_branch |
+            | url                |
+
 

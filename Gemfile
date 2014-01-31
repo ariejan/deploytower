@@ -50,6 +50,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'rake'
   gem 'rspec-rails', '~> 2.14.1'
 end
 
