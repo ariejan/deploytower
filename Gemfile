@@ -46,6 +46,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'orderly'
+  gem 'launchy'
 end
 
 group :development, :test do
