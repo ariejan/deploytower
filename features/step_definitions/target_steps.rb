@@ -31,8 +31,12 @@ When(/^I add a new target without attribute "(.*?)"$/) do |attribute|
   create_target(attribute => "")
 end
 
-When(/^I update the name of "(.*?)" to "(.*?)"$/) do |old, new|
-  update_target_name(old, new)
+When(/^I update the target "(.*?)" to "(.*?)"$/) do |name, new_name|
+  update_target_with_name(name, name: new_name)
+end
+
+When(/^I update the target "(.*?)" without attribute "(.*?)"$/) do |name, attribute|
+  update_target_with_name(name, attribute => "")
 end
 
 When(/^I destroy the target "(.*?)"$/) do |name|
