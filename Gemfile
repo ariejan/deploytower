@@ -43,7 +43,6 @@ end
 group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'orderly'
   gem 'launchy'
@@ -52,16 +51,5 @@ end
 group :development, :test do
   gem 'rake'
   gem 'rspec-rails', '~> 2.14.1'
+  gem 'factory_girl_rails'
 end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
