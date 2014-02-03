@@ -9,6 +9,13 @@ a
 h1, h2, h3, h4, h5, h6
   color: $highlight-color
 
+.btn,
+.btn:hover
+  @include button(simple, $highlight-color)
+
+  &.red
+    @include button(simple, #f00)
+
 #page
   @include outer-container
 
@@ -28,3 +35,10 @@ h1, h2, h3, h4, h5, h6
     .page-actions
       font-size: small
       text-align: right
+      
+      &.full
+        border-top: 1px dotted $highlight-color
+        margin-top: 1em
+        margin-bottom: 1em
+        padding-top: 1em
+        padding-bottom: 1em

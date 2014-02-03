@@ -27,7 +27,7 @@ module Helpers
 
     def destroy_target(target)
       visit "/targets/#{target.id}"
-      click_button "Delete"
+      click_link "Delete"
     end
 
     private

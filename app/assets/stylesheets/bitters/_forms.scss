@@ -79,8 +79,6 @@ select {
   margin-bottom: $base-line-height;
 }
 
-.btn,
-.btn:hover,
 button,
 input[type="submit"] {
   @extend %button;
