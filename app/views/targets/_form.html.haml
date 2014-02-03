@@ -2,4 +2,10 @@
   = render 'shared/error_messages', object: f.object
 
   = f.input :name
+  = f.input :heroku_app_name
+  = f.input :heroku_git_remote
+  = f.input :git_remote
+  = f.input :git_default_branch
+  = f.input :url
+
   = f.button :submit

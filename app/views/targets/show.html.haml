@@ -1,4 +1,10 @@
-.actions
-  = button_to "Delete", target_path, method: :delete, data: { confirm: "Are you sure about that?" }
+.target
+  %h2= @target.name
 
-%h1= @target.name
+  #deployments
+    %p.no-data
+      This app hasn't been deployed yet!
+
+  .full.page-actions
+    = link_to "Deploy!", "#", class: "btn"
+    = link_to "Delete", target_path, method: :delete, class: "btn red", data: { confirm: "Are you sure about that?" }

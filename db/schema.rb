@@ -11,13 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140127184445) do
+ActiveRecord::Schema.define(version: 20140131132829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "targets", force: true do |t|
     t.string "name"
+    t.string "heroku_app_name"
+    t.string "heroku_git_remote"
+    t.string "git_remote"
+    t.string "git_default_branch"
+    t.string "url"
   end
 
 end

@@ -1,2 +1,16 @@
 %li[target]
-  = link_to target.name, target
+  .actions
+    = link_to "Deploy!", "#", class: "btn"
+
+  .name
+    = link_to target.name, target
+    %span.branch feature-12328373-add-fancy-stuff
+
+  .last
+    Last deployment
+    %span.when 3 hours ago
+    by
+    %span.by John McClane
+
+
+  .url= link_to "Open application", target.url, target: "_blank"
