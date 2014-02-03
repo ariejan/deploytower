@@ -1,0 +1,36 @@
+ol#targets
+  border-top: 1px dotted $highlight-color
+  padding-top: 0.8em
+  margin-top: 0.4em
+
+  li.target
+    line-height: 1em
+    margin: 0 0 0.8em 0
+    padding: 0 0 0.8em 0
+    border-bottom: 1px dotted $highlight-color
+
+    .name
+      font-weight: bold
+      span.branch
+        font-size: small
+        color: lighten($text-color, 30)
+
+    .heroku_app_name,
+    .url
+      font-size: small
+      color: lighten($text-color, 60)
+
+    .last
+      font-size: small
+      color: lighten($text-color, 40)
+
+      .by,
+      .when,
+      .branch
+        display: inline-block
+        color: lighten($text-color, 40)
+
+    .actions
+      font-size: small
+      float: right
+      margin-top: 0.5em
