@@ -1,6 +1,6 @@
 # DeployTower 
 
-[![Build Status](https://travis-ci.org/ariejan/deploytower.png?branch=master)](https://travis-ci.org/ariejan/deploytower) [![Code Climate](https://codeclimate.com/github/ariejan/deploytower.png)](https://codeclimate.com/github/ariejan/deploytower) [![Dependency Status](https://gemnasium.com/ariejan/deploytower.png)](https://gemnasium.com/ariejan/deploytower)
+[![Build Status](https://travis-ci.org/ariejan/deploytower.png?branch=master)](https://travis-ci.org/ariejan/deploytower) [![Code Climate](https://codeclimate.com/github/ariejan/deploytower.png)](https://codeclimate.com/github/ariejan/deploytower)
 
 DeployTower is intended as a utility to support people to easily deploy apps to Heroku. The ultimate goal
 is to make deployments of feature branches to different heroku apps as easy as possible for non-technical
