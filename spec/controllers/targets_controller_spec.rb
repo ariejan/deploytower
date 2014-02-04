@@ -69,19 +69,58 @@ describe TargetsController do
   end
 
   describe "GET #edit" do
-    it "assigns the requested target to @target"
-    it "renders the :edit view"
+    let(:target) { create :target }
+
+    it "assigns the requested target to @target" do
+      get :edit, id: target
+      expect(assigns(:target)).to eql(target)
+    end
+
+    it "renders the :edit view" do
+      get :edit, id: target
+      expect(response).to render_template(:edit)
+    end
   end
 
   describe "PUT #update" do
+    let(:target)     { create :target }
+    let(:attributes) { attributes_for(:target) }
+
+    before do
+      allow(Target).to receive(:find).and_return(target)
+    end
+
     context "with valid attributes" do
-      it "updates the target to the database"
-      it "redirects to the target page"
+      it "assigns the target to @target" do
+        put :update, id: target, target: attributes
+        expect(assigns(:target)).to eql(target)
+      end
+
+      it "updates the target to the database" do
+        expect(target).to receive(:update).with(attributes.stringify_keys)
+        put :update, id: target, target: attributes
+      end
+
+      it "redirects to the target page" do
+        put :update, id: target, target: attributes
+        expect(response).to redirect_to(target)
+      end
     end
 
     context "with invalid attributes" do
-      it "does not update the target to the database"
-      it "re-renders the :edit view"
+      before do
+        allow(target).to receive(:save).and_return(false)
+      end
+
+      it "assigns the target to @target" do
+        put :update, id: target, target: attributes
+        expect(assigns(:target)).to eql(target)
+      end
+
+      it "re-renders the :edit view" do
+        put :update, id: target, target: attributes
+        expect(response).to render_template(:edit)
+      end
     end
   end
 
