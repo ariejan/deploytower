@@ -2,8 +2,16 @@ require 'spec_helper'
 
 describe TargetsController do
   describe "GET #index" do
-    it "assigns an array of targets to @targets"
-    it "renders the :index view"
+    it "assigns an array of targets to @targets" do
+      target = create(:target)
+      get :index
+      expect(assigns(:targets)).to match_array([target])
+    end
+
+    it "renders the :index view" do
+      get :index
+      expect(response).to render_template(:index)
+    end
   end
 
   describe "GET #show" do
