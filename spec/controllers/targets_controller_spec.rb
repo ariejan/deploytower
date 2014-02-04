@@ -142,7 +142,20 @@ describe TargetsController do
   end
 
   describe "DELETE #destroy" do
-    it "removes the target from the database"
-    it "redirect to the root url"
+    let(:target)     { create :target }
+
+    before do
+      allow(Target).to receive(:find).and_return(target)
+    end
+
+    it "removes the target from the database" do
+      expect(target).to receive(:destroy)
+      delete :destroy, id: target
+    end
+
+    it "redirects back to the root url" do
+      delete :destroy, id: target
+      expect(response).to redirect_to("/")
+    end
   end
 end
