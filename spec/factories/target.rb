@@ -11,4 +11,8 @@ FactoryGirl.define do
     url                { "http://#{heroku_app_name}.example.com" }
   end
 
+  factory :invalid_target, parent: :target do
+    name { "" }
+  end
+
 end

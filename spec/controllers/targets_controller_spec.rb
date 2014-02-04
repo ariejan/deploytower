@@ -29,19 +29,42 @@ describe TargetsController do
   end
 
   describe "GET #new" do
-    it "assigns a new target to @target"
-    it "render the :new view"
+    it "assigns a new target to @target" do
+      get :new
+      expect(assigns(:target)).to be_a_new(Target)
+    end
+
+    it "render the :new view" do
+      get :new
+      expect(response).to render_template(:new)
+    end
   end
 
   describe "POST #create" do
     context "with valid attributes" do
-      it "saves the target to the database"
-      it "redirects to the target page"
+      it "saves the target to the database" do
+        expect {
+          post :create, target: attributes_for(:target)
+        }.to change(Target, :count).by(1)
+      end
+
+      it "redirects to the target page" do
+        post :create, target: attributes_for(:target)
+        expect(response).to redirect_to(Target.last)
+      end
     end
 
     context "with invalid attributes" do
-      it "does not save the target to the database"
-      it "re-renders the :new view"
+      it "does not save the target to the database" do
+        expect {
+          post :create, target: attributes_for(:invalid_target)
+        }.not_to change(Target, :count)
+      end
+
+      it "re-renders the :new view" do
+        post :create, target: attributes_for(:invalid_target)
+        expect(response).to render_template(:new)
+      end
     end
   end
 
