@@ -2,8 +2,13 @@ require 'spec_helper'
 
 describe TargetsController do
   describe "GET #index" do
+    let(:target) { create :target }
+
+    before do
+      allow(Target).to receive(:all).and_return([target])
+    end
+
     it "assigns an array of targets to @targets" do
-      target = create(:target)
       get :index
       expect(assigns(:targets)).to match_array([target])
     end
@@ -16,6 +21,10 @@ describe TargetsController do
 
   describe "GET #show" do
     let(:target) { create :target }
+
+    before do
+      allow(Target).to receive(:find).and_return(target)
+    end
 
     it "assigns the requested target to @target" do
       get :show, id: target
@@ -41,11 +50,16 @@ describe TargetsController do
   end
 
   describe "POST #create" do
+    let(:target) { build :target }
+
+    before do
+      allow(Target).to receive(:new).and_return(target)
+    end
+
     context "with valid attributes" do
       it "saves the target to the database" do
-        expect {
-          post :create, target: attributes_for(:target)
-        }.to change(Target, :count).by(1)
+        expect(target).to receive(:save)
+        post :create, target: attributes_for(:target)
       end
 
       it "redirects to the target page" do
@@ -55,14 +69,17 @@ describe TargetsController do
     end
 
     context "with invalid attributes" do
-      it "does not save the target to the database" do
-        expect {
-          post :create, target: attributes_for(:invalid_target)
-        }.not_to change(Target, :count)
+      before do
+        allow(target).to receive(:save).and_return(false)
+      end
+
+      it "assigns @target a new record" do
+        post :create, target: attributes_for(:target)
+        expect(assigns(:target)).to be_a_new(Target)
       end
 
       it "re-renders the :new view" do
-        post :create, target: attributes_for(:invalid_target)
+        post :create, target: attributes_for(:target)
         expect(response).to render_template(:new)
       end
     end
