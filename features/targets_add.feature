@@ -8,18 +8,7 @@ Feature:
         When I add a new target named "awesome-qa"
         Then I should be on the target detail page for "awesome-qa"
 
-    Scenario Outline: Attribute presence validation
+    Scenario: It reports validation errors
         Given no targets exist
-        When I add a new target without attribute "<attribute>"
-        Then I should see target "<attribute>" cannot be blank
-
-        Examples:
-            | attribute          |
-            | name               |
-            | heroku_app_name    |
-            | heroku_git_remote  |
-            | git_remote         |
-            | git_default_branch |
-            | url                |
-
-
+        When I try to add an invalid target
+        Then I should see errors on target

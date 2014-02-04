@@ -5,7 +5,7 @@ module Helpers
       expect(page).to have_content(target.name)
     end
 
-    def create_target(opts)
+    def create_target(opts = {})
       opts.symbolize_keys!
       attributes = FactoryGirl.attributes_for(:target).merge!(opts)
 
@@ -14,15 +14,21 @@ module Helpers
       click_button "Create Target"
     end
 
-    def update_target_with_name(name, opts = {})
-      target = Target.where(name: name).first
+    def create_invalid_target
+      create_target(name: "")
+    end
 
+    def update_target(target, opts)
       opts.symbolize_keys!
       attributes = FactoryGirl.attributes_for(:target).merge!(opts)
 
       visit "/targets/#{target.id}/edit"
       fill_target_form(attributes)
       click_button "Update Target"
+    end
+
+    def update_invalid_target(target)
+      update_target(target, name: "")
     end
 
     def destroy_target(target)

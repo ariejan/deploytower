@@ -27,16 +27,22 @@ When(/^I add a new target named "(.*?)"$/) do |name|
   create_target(name: name)
 end
 
+When(/^I try to add an invalid target$/) do
+  create_invalid_target
+end
+
 When(/^I add a new target without attribute "(.*?)"$/) do |attribute|
   create_target(attribute => "")
 end
 
-When(/^I update the target "(.*?)" to "(.*?)"$/) do |name, new_name|
-  update_target_with_name(name, name: new_name)
+When(/^I update target "(.*?)" with invalid data$/) do |name|
+  target = Target.find_by_name(name)
+  update_invalid_target(target)
 end
 
-When(/^I update the target "(.*?)" without attribute "(.*?)"$/) do |name, attribute|
-  update_target_with_name(name, attribute => "")
+When(/^I update the target "(.*?)" to "(.*?)"$/) do |name, new_name|
+  target = Target.find_by_name(name)
+  update_target(target, name: new_name)
 end
 
 When(/^I destroy the target "(.*?)"$/) do |name|
@@ -60,9 +66,12 @@ Then(/^I should be on the target detail page$/) do
 end
 
 Then(/^I should be on the target detail page for "(.*?)"$/) do |name|
-  puts Target.all.inspect
   target = Target.where(name: name).first
   expect_target_details_page(target)
+end
+
+Then(/^I should see errors on target$/) do
+  expect(page).to have_selector('#error_explanation')
 end
 
 Then(/^I should see target "(.*?)" cannot be blank$/) do |attribute|
