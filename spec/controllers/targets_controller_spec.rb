@@ -15,8 +15,17 @@ describe TargetsController do
   end
 
   describe "GET #show" do
-    it "assigns the requested target to @target"
-    it "renders the :show view"
+    let(:target) { create :target }
+
+    it "assigns the requested target to @target" do
+      get :show, id: target
+      expect(assigns(:target)).to eql(target)
+    end
+
+    it "renders the :show view" do
+      get :show, id: target
+      expect(response).to render_template(:show)
+    end
   end
 
   describe "GET #new" do
