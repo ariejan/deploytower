@@ -196,15 +196,33 @@ describe TargetsController do
       allow(Target).to receive(:find).and_return(target)
     end
 
-    it 'creates a new queued deployment' do
-      expect(target).to receive(:deploy!)
-      post :deploy, id: target
+    describe 'with deployments allowed' do
+      it 'creates a new queued deployment' do
+        expect(target).to receive(:deploy!)
+        post :deploy, id: target
+      end
+
+      it 'redirects back to the target' do
+        allow(target).to receive(:deploy!)
+        post :deploy, id: target
+        expect(response).to redirect_to(target)
+      end
     end
 
-    it 'redirects back to the target' do
-      allow(target).to receive(:deploy!)
-      post :deploy, id: target
-      expect(response).to redirect_to(target)
+    describe 'with deployments not allowed' do
+      before do
+        allow(target).to receive(:deployable?).and_return(false)
+      end
+
+      it 'creates a new queued deployment' do
+        expect(target).not_to receive(:deploy!)
+        post :deploy, id: target
+      end
+
+      it 'redirects back to the target' do
+        post :deploy, id: target
+        expect(response).to redirect_to(target)
+      end
     end
   end
 end

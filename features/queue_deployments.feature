@@ -26,4 +26,4 @@ Feature: Queue deployments
         Given I am on the target page
         And a deployment is already queued
         When I click the deploy button
-        Then I see an "deployment cannot be started" error message
+        Then I see an "Deployment cannot be queued" error message

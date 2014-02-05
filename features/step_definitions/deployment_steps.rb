@@ -26,3 +26,7 @@ Then(/^I see the deploy button is disabled$/) do
     expect(page).to have_css('.btn.disabled', text: 'Deploy')
   end
 end
+
+Then(/^I see an "(.*?)" error message$/) do |message|
+  expect(page).to have_css('#flash_error', text: message)
+end
