@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Target do
 
-  describe "associations" do
+  describe 'associations' do
     it { expect(subject).to have_many(:deployments) }
   end
 
@@ -32,9 +32,9 @@ describe Target do
     subject(:target) { create :target }
 
     it 'creates a new deployment' do
-      expect {
+      expect do
         target.deploy!
-      }.to change(target.deployments, :count).by(1)
+      end.to change(target.deployments, :count).by(1)
     end
 
     describe 'queued deployment' do

@@ -12,13 +12,12 @@
 #    deployment
 #
 class Target < ActiveRecord::Base
-
   # Queues a new Deployment for this target.
   def deploy!
-    deployments.create!({
-      branch: self.git_default_branch,
+    deployments.create!(
+      branch: git_default_branch,
       state:  'queued'
-    })
+    )
   end
 
   # Returns true if new deployments for this
@@ -48,5 +47,4 @@ class Target < ActiveRecord::Base
 
   validates :url,
             presence: true
-
 end

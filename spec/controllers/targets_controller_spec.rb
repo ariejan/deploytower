@@ -34,14 +34,14 @@ describe TargetsController do
       expect(response).to render_template(:show)
     end
 
-    describe "with deployments" do
+    describe 'with deployments' do
       let(:deployment) { build_stubbed :deployment }
 
       before do
         allow(target).to receive(:deployments).and_return([deployment])
       end
 
-      it "assigns target.deployments to @deployments" do
+      it 'assigns target.deployments to @deployments' do
         get :show, id: target
         expect(assigns(:deployments)).to eql([deployment])
       end
@@ -189,7 +189,7 @@ describe TargetsController do
     end
   end
 
-  describe "POST #deploy" do
+  describe 'POST #deploy' do
     let(:target) { build_stubbed :target }
 
     before do

@@ -30,7 +30,8 @@ describe 'targets/show' do
       assign(:deployments, deployments)
       render
 
-      expect(rendered).to render_template(partial: 'deployments/_deployment', count: 2)
+      expect(rendered).to render_template(
+        partial: 'deployments/_deployment', count: 2)
     end
   end
 

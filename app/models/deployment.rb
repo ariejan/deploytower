@@ -1,3 +1,6 @@
+# Deployment represents the state of
+# a queued or finished deployment for
+# the specified target.
 class Deployment < ActiveRecord::Base
   include AASM
 

@@ -3,7 +3,7 @@ Given(/^I am on the target page$/) do
 end
 
 Given(/^([\d+|a]) targets? exists?$/) do |count|
-  count = 1 if count == "a"
+  count = 1 if count == 'a'
   FactoryGirl.create_list(:target, count.to_i)
 end
 
