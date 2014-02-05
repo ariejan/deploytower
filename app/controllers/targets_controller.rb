@@ -24,7 +24,7 @@ class TargetsController < ApplicationController
     @target = Target.new(target_params)
 
     if @target.save
-      redirect_to @target
+      redirect_to @target, notice: "Target was successfully created."
     else
       render :new
     end
@@ -33,7 +33,7 @@ class TargetsController < ApplicationController
   # PATCH/PUT /targets/1
   def update
     if @target.update(target_params)
-      redirect_to @target
+      redirect_to @target, notice: "Target was successfully updated."
     else
       render :edit
     end
@@ -42,7 +42,7 @@ class TargetsController < ApplicationController
   # DELETE /targets/1
   def destroy
     @target.destroy
-    redirect_to root_path
+    redirect_to root_path, notice: "Target was successfully deleted."
   end
 
   private
