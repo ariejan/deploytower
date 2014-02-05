@@ -1,0 +1,10 @@
+AllCops:
+  Includes:
+    - '**/*.gemspec'
+    - '**/Rakefile'
+  Excludes:
+    - bin/**
+    - db/**
+    - vendor/**
+  RunRailsCops: true
+
