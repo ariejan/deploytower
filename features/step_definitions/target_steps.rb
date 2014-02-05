@@ -1,4 +1,5 @@
-Given(/^(\d+) targets? exists?$/) do |count|
+Given(/^([\d+|a]) targets? exists?$/) do |count|
+  count = 1 if count == "a"
   FactoryGirl.create_list(:target, count.to_i)
 end
 

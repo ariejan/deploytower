@@ -6,6 +6,7 @@ Feature: Queue deployments
     Background:
         Given a target exists
 
+    @wip
     Scenario: See previous deployments
         Given a deployment is already queued
         And I am on the target page
