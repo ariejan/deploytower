@@ -2,21 +2,17 @@ Given(/^(\d+) targets? exists?$/) do |count|
   FactoryGirl.create_list(:target, count.to_i)
 end
 
-Given(/^no targets exist$/) do
-  step "0 targets exist"
-end
-
 Given(/^a target "(.*?)" exists$/) do |name|
   FactoryGirl.create(:target, name: name)
 end
 
 Given(/^2 randomly ordered targets exist$/) do
-  FactoryGirl.create(:target, name: "zzzz")
-  FactoryGirl.create(:target, name: "aaaa")
+  FactoryGirl.create(:target, name: 'zzzz')
+  FactoryGirl.create(:target, name: 'aaaa')
 end
 
 When(/^I visit the target page$/) do
-  visit "/"
+  visit '/'
 end
 
 When(/^I click on a target$/) do
@@ -27,16 +23,18 @@ When(/^I add a new target named "(.*?)"$/) do |name|
   create_target(name: name)
 end
 
-When(/^I add a new target without attribute "(.*?)"$/) do |attribute|
-  create_target(attribute => "")
+When(/^I try to add an invalid target$/) do
+  create_invalid_target
+end
+
+When(/^I update target "(.*?)" with invalid data$/) do |name|
+  target = Target.find_by_name(name)
+  update_invalid_target(target)
 end
 
 When(/^I update the target "(.*?)" to "(.*?)"$/) do |name, new_name|
-  update_target_with_name(name, name: new_name)
-end
-
-When(/^I update the target "(.*?)" without attribute "(.*?)"$/) do |name, attribute|
-  update_target_with_name(name, attribute => "")
+  target = Target.find_by_name(name)
+  update_target(target, name: new_name)
 end
 
 When(/^I destroy the target "(.*?)"$/) do |name|
@@ -45,7 +43,7 @@ When(/^I destroy the target "(.*?)"$/) do |name|
 end
 
 Then(/^I should see no targets configured$/) do
-  expect(page).to have_content("No targets configured")
+  expect(page).to have_content('No targets configured')
 end
 
 Then(/^I should see all targets$/) do
@@ -60,30 +58,26 @@ Then(/^I should be on the target detail page$/) do
 end
 
 Then(/^I should be on the target detail page for "(.*?)"$/) do |name|
-  puts Target.all.inspect
   target = Target.where(name: name).first
   expect_target_details_page(target)
 end
 
-Then(/^I should see target "(.*?)" cannot be blank$/) do |attribute|
-  within("#error_explanation") do
-    expect(page).to have_content("#{attribute.humanize} can't be blank")
-  end
+Then(/^I should see errors on target$/) do
+  expect(page).to have_selector('#error_explanation')
 end
 
 Then(/^I see all targets are sorted alphabetically$/) do
-  targets = Target.order("name ASC")
+  targets = Target.order('name ASC')
   expect(targets.first.name).to appear_before(targets.last.name)
 end
 
-Then(/^I should see "(.*?)" in the overview$/) do |name|
-  visit "/"
-  within("#targets") do
-    expect(page).to have_content(name)
-  end
+Then(/^I should see the target "(.*?)" no longer exists$/) do |name|
+  expect(current_path).to eql('/')
+  expect(page).to have_no_content(name)
 end
 
-Then(/^I should see the target "(.*?)" no longer exists$/) do |name|
-  expect(current_path).to eql("/")
-  expect(page).to have_no_content(name)
+Then(/^I see the target was (.*?) successfully$/) do |action|
+  within('#flash_success') do
+    expect(page).to have_content("Target was successfully #{action}")
+  end
 end

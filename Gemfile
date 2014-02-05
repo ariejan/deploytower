@@ -38,6 +38,8 @@ end
 
 group :development do
   gem 'haml-rails'
+  gem 'rubocop'
+  gem 'rails_best_practices'
 end
 
 group :test do
@@ -46,6 +48,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'orderly'
   gem 'launchy'
+  gem 'fuubar'
+  gem 'simplecov', require: false
 end
 
 group :development, :test do

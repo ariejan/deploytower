@@ -7,8 +7,12 @@ FactoryGirl.define do
     heroku_app_name
     heroku_git_remote  { "git@example.com:#{heroku_app_name}.git" }
     git_remote         { "git@git.example.org:apps/#{heroku_app_name}" }
-    git_default_branch { "master" }
+    git_default_branch { 'master' }
     url                { "http://#{heroku_app_name}.example.com" }
+  end
+
+  factory :invalid_target, parent: :target do
+    name { '' }
   end
 
 end

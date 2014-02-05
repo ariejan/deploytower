@@ -17,3 +17,6 @@
 
 # Database configuration
 config/database.yml
+
+# Simplecov coverage report
+coverage/

@@ -1,50 +1,65 @@
+# Managed CRUD operations for Target
+#
+# This controller does not handle deployments.
 class TargetsController < ApplicationController
+  before_action :set_target, only: [:show, :edit, :update, :destroy]
+
+  # GET /targets
   def index
     @targets = Target.all
   end
 
+  # GET /targets/1
   def show
-    @target = Target.find(params[:id])
   end
 
+  # GET /targets/new
   def new
     @target = Target.new
   end
 
+  # GET /targets/1/edit
+  def edit
+  end
+
+  # POST /targets
   def create
     @target = Target.new(target_params)
 
     if @target.save
-      redirect_to @target
+      redirect_to @target,
+        flash: { success: 'Target was successfully created.' }
     else
       render :new
     end
   end
 
-  def edit
-    @target = Target.find(params[:id])
-  end
-
+  # PATCH/PUT /targets/1
   def update
-    @target = Target.find(params[:id])
-
-    if @target.update_attributes(target_params)
-      redirect_to @target
+    if @target.update(target_params)
+      redirect_to @target,
+        flash: { success: 'Target was successfully updated.' }
     else
       render :edit
     end
   end
 
+  # DELETE /targets/1
   def destroy
-    @target = Target.find(params[:id])
     @target.destroy
-
-    redirect_to root_path
+    redirect_to root_path,
+      flash: { success: 'Target was successfully deleted.' }
   end
 
   private
 
+  def set_target
+    @target = Target.find(params[:id])
+  end
+
   def target_params
-    params.require(:target).permit(:name, :heroku_app_name, :heroku_git_remote, :git_remote, :git_default_branch, :url)
+    params.require(:target).permit(
+      :name, :heroku_app_name, :heroku_git_remote,
+      :git_remote, :git_default_branch, :url)
   end
 end

@@ -8,19 +8,9 @@ Feature:
 
     Scenario: Update target name
         When I update the target "my-target" to "your-target"
-        Then I should see "your-target" in the overview
-        And I should see the target "my-target" no longer exists
+        Then I should be on the target detail page for "your-target"
+        And I see the target was updated successfully
     
-    Scenario Outline: Attribute presence validation
-        When I update the target "my-target" without attribute "<attribute>"
-        Then I should see target "<attribute>" cannot be blank
-
-        Examples:
-            | attribute          |
-            | name               |
-            | heroku_app_name    |
-            | heroku_git_remote  |
-            | git_remote         |
-            | git_default_branch |
-            | url                |
-
+    Scenario: It reports validation errors
+        When I update target "my-target" with invalid data
+        Then I should see errors on target
