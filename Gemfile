@@ -46,6 +46,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'orderly'
   gem 'launchy'
+  gem 'fuubar'
 end
 
 group :development, :test do
