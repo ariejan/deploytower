@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   sequence(:heroku_app_name)          { |n| "heroku_app_#{n}" }
 
   factory :target do
@@ -10,9 +9,4 @@ FactoryGirl.define do
     git_default_branch { 'master' }
     url                { "http://#{heroku_app_name}.example.com" }
   end
-
-  factory :invalid_target, parent: :target do
-    name { '' }
-  end
-
 end
