@@ -12,7 +12,10 @@
 #    deployment
 #
 class Target < ActiveRecord::Base
+
   default_scope { order('name ASC') }
+
+  has_many :deployments
 
   validates :name,
             presence: true

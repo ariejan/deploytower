@@ -33,6 +33,19 @@ describe TargetsController do
     it 'renders the :show view' do
       expect(response).to render_template(:show)
     end
+
+    describe "with deployments" do
+      let(:deployment) { build_stubbed :deployment }
+
+      before do
+        allow(target).to receive(:deployments).and_return([deployment])
+      end
+
+      it "assigns target.deployments to @deployments" do
+        get :show, id: target
+        expect(assigns(:deployments)).to eql([deployment])
+      end
+    end
   end
 
   describe 'GET #new' do

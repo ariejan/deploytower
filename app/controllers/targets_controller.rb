@@ -11,6 +11,7 @@ class TargetsController < ApplicationController
 
   # GET /targets/1
   def show
+    @deployments = @target.deployments
   end
 
   # GET /targets/new

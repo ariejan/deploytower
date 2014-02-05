@@ -2,8 +2,11 @@
   %h2= @target.name
 
   #deployments
-    %p.no-data
-      This app hasn't been deployed yet!
+    - if @deployments.any?
+      = render @deployments
+    - else
+      %p.no-data
+        There are no deployments for this app yet!
 
   .full.page-actions
     = link_to "Deploy!", "#", class: "btn"

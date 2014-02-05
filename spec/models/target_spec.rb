@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Target do
 
+  describe "associations" do
+    it { expect(subject).to have_many(:deployments) }
+  end
+
   it 'generates a valid Target' do
     expect(create(:target)).to be_valid
   end
