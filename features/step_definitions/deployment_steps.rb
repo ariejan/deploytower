@@ -3,7 +3,7 @@ Given(/^a deployment is already queued$/) do
 end
 
 Given(/^I am on the target page$/) do
-  visit "/target/#{Target.last.id}"
+  visit "/targets/#{Target.last.id}"
 end
 
 Then(/^I see a list of previous deployments$/) do
