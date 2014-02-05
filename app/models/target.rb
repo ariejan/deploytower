@@ -13,6 +13,14 @@
 #
 class Target < ActiveRecord::Base
 
+  # Queues a new Deployment for this target.
+  def deploy!
+    deployments.create!({
+      branch: self.git_default_branch,
+      state:  'queued'
+    })
+  end
+
   default_scope { order('name ASC') }
 
   has_many :deployments
@@ -34,4 +42,5 @@ class Target < ActiveRecord::Base
 
   validates :url,
             presence: true
+
 end

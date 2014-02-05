@@ -62,6 +62,23 @@ describe TargetsController do
     end
   end
 
+  describe 'GET #edit' do
+    let(:target) { build_stubbed :target }
+
+    before do
+      allow(Target).to receive(:find).and_return(target)
+      get :edit, id: target
+    end
+
+    it 'assigns the requested target to @target' do
+      expect(assigns(:target)).to eql(target)
+    end
+
+    it 'renders the :edit view' do
+      expect(response).to render_template(:edit)
+    end
+  end
+
   describe 'POST #create' do
     let(:target)     { build_stubbed :target }
     let(:attributes) { attributes_for(:target) }
@@ -104,23 +121,6 @@ describe TargetsController do
       it 're-renders the :new view' do
         expect(response).to render_template(:new)
       end
-    end
-  end
-
-  describe 'GET #edit' do
-    let(:target) { build_stubbed :target }
-
-    before do
-      allow(Target).to receive(:find).and_return(target)
-      get :edit, id: target
-    end
-
-    it 'assigns the requested target to @target' do
-      expect(assigns(:target)).to eql(target)
-    end
-
-    it 'renders the :edit view' do
-      expect(response).to render_template(:edit)
     end
   end
 
@@ -171,7 +171,7 @@ describe TargetsController do
   end
 
   describe 'DELETE #destroy' do
-    let(:target)     { build_stubbed :target }
+    let(:target) { build_stubbed :target }
 
     before do
       allow(Target).to receive(:find).and_return(target)
@@ -186,6 +186,25 @@ describe TargetsController do
       allow(target).to receive(:destroy)
       delete :destroy, id: target
       expect(response).to redirect_to('/')
+    end
+  end
+
+  describe "POST #deploy" do
+    let(:target) { build_stubbed :target }
+
+    before do
+      allow(Target).to receive(:find).and_return(target)
+    end
+
+    it 'creates a new queued deployment' do
+      expect(target).to receive(:deploy!)
+      post :deploy, id: target
+    end
+
+    it 'redirects back to the target' do
+      allow(target).to receive(:deploy!)
+      post :deploy, id: target
+      expect(response).to redirect_to(target)
     end
   end
 end

@@ -29,5 +29,9 @@ describe TargetsController do
     it '#destroy' do
       expect(delete('/targets/1')).to route_to('targets#destroy', id: '1')
     end
+
+    it '#deploy' do
+      expect(post('/targets/1/deploy')).to route_to('targets#deploy', id: '1')
+    end
   end
 end

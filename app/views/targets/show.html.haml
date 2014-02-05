@@ -9,5 +9,5 @@
         There are no deployments for this app yet!
 
   .full.page-actions
-    = link_to "Deploy!", "#", class: "btn"
+    = link_to "Deploy", deploy_target_path(@target), method: :post, class: "btn"
     = link_to "Delete", @target, method: :delete, class: "btn red", data: { confirm: "Are you sure about that?" }
