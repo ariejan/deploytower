@@ -1,16 +1,25 @@
 class TargetsController < ApplicationController
+  before_action :set_target, only: [:show, :edit, :update, :destroy]
+
+  # GET /targets
   def index
     @targets = Target.all
   end
 
+  # GET /targets/1
   def show
-    @target = Target.find(params[:id])
   end
 
+  # GET /targets/new
   def new
     @target = Target.new
   end
 
+  # GET /targets/1/edit
+  def edit
+  end
+
+  # POST /targets
   def create
     @target = Target.new(target_params)
 
@@ -21,13 +30,8 @@ class TargetsController < ApplicationController
     end
   end
 
-  def edit
-    @target = Target.find(params[:id])
-  end
-
+  # PATCH/PUT /targets/1
   def update
-    @target = Target.find(params[:id])
-
     if @target.update(target_params)
       redirect_to @target
     else
@@ -35,16 +39,19 @@ class TargetsController < ApplicationController
     end
   end
 
+  # DELETE /targets/1
   def destroy
-    @target = Target.find(params[:id])
     @target.destroy
-
     redirect_to root_path
   end
 
   private
 
-  def target_params
-    params.require(:target).permit(:name, :heroku_app_name, :heroku_git_remote, :git_remote, :git_default_branch, :url)
-  end
+    def set_target
+      @target = Target.find(params[:id])
+    end
+
+    def target_params
+      params.require(:target).permit(:name, :heroku_app_name, :heroku_git_remote, :git_remote, :git_default_branch, :url)
+    end
 end
