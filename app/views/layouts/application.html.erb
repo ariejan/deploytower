@@ -11,9 +11,12 @@
     <header id="header">
       <a href="/"><h1>DeployTower</h1></a>
     </header>
+
     <section id="content">
+      <%= render 'shared/flash_messages' %>
       <%= yield %>
     </section>
+
   </div>
 </body>
 </html>

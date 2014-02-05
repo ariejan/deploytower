@@ -4,7 +4,11 @@ AllCops:
     - '**/Rakefile'
   Excludes:
     - bin/**
+    - config/**
     - db/**
+    - script/**
     - vendor/**
   RunRailsCops: true
 
+AlignParameters:
+  Enabled: false

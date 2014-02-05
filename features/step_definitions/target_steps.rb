@@ -2,21 +2,17 @@ Given(/^(\d+) targets? exists?$/) do |count|
   FactoryGirl.create_list(:target, count.to_i)
 end
 
-Given(/^no targets exist$/) do
-  step "0 targets exist"
-end
-
 Given(/^a target "(.*?)" exists$/) do |name|
   FactoryGirl.create(:target, name: name)
 end
 
 Given(/^2 randomly ordered targets exist$/) do
-  FactoryGirl.create(:target, name: "zzzz")
-  FactoryGirl.create(:target, name: "aaaa")
+  FactoryGirl.create(:target, name: 'zzzz')
+  FactoryGirl.create(:target, name: 'aaaa')
 end
 
 When(/^I visit the target page$/) do
-  visit "/"
+  visit '/'
 end
 
 When(/^I click on a target$/) do
@@ -47,7 +43,7 @@ When(/^I destroy the target "(.*?)"$/) do |name|
 end
 
 Then(/^I should see no targets configured$/) do
-  expect(page).to have_content("No targets configured")
+  expect(page).to have_content('No targets configured')
 end
 
 Then(/^I should see all targets$/) do
@@ -71,18 +67,17 @@ Then(/^I should see errors on target$/) do
 end
 
 Then(/^I see all targets are sorted alphabetically$/) do
-  targets = Target.order("name ASC")
+  targets = Target.order('name ASC')
   expect(targets.first.name).to appear_before(targets.last.name)
 end
 
-Then(/^I should see "(.*?)" in the overview$/) do |name|
-  visit "/"
-  within("#targets") do
-    expect(page).to have_content(name)
-  end
+Then(/^I should see the target "(.*?)" no longer exists$/) do |name|
+  expect(current_path).to eql('/')
+  expect(page).to have_no_content(name)
 end
 
-Then(/^I should see the target "(.*?)" no longer exists$/) do |name|
-  expect(current_path).to eql("/")
-  expect(page).to have_no_content(name)
+Then(/^I see the target was (.*?) successfully$/) do |action|
+  within('#flash_success') do
+    expect(page).to have_content("Target was successfully #{action}")
+  end
 end

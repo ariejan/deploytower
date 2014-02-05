@@ -1,3 +1,6 @@
+# Managed CRUD operations for Target
+#
+# This controller does not handle deployments.
 class TargetsController < ApplicationController
   before_action :set_target, only: [:show, :edit, :update, :destroy]
 
@@ -24,7 +27,8 @@ class TargetsController < ApplicationController
     @target = Target.new(target_params)
 
     if @target.save
-      redirect_to @target, notice: "Target was successfully created."
+      redirect_to @target,
+        flash: { success: 'Target was successfully created.' }
     else
       render :new
     end
@@ -33,7 +37,8 @@ class TargetsController < ApplicationController
   # PATCH/PUT /targets/1
   def update
     if @target.update(target_params)
-      redirect_to @target, notice: "Target was successfully updated."
+      redirect_to @target,
+        flash: { success: 'Target was successfully updated.' }
     else
       render :edit
     end
@@ -42,16 +47,19 @@ class TargetsController < ApplicationController
   # DELETE /targets/1
   def destroy
     @target.destroy
-    redirect_to root_path, notice: "Target was successfully deleted."
+    redirect_to root_path,
+      flash: { success: 'Target was successfully deleted.' }
   end
 
   private
 
-    def set_target
-      @target = Target.find(params[:id])
-    end
+  def set_target
+    @target = Target.find(params[:id])
+  end
 
-    def target_params
-      params.require(:target).permit(:name, :heroku_app_name, :heroku_git_remote, :git_remote, :git_default_branch, :url)
-    end
+  def target_params
+    params.require(:target).permit(
+      :name, :heroku_app_name, :heroku_git_remote,
+      :git_remote, :git_default_branch, :url)
+  end
 end

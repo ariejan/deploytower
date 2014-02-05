@@ -39,6 +39,7 @@ end
 group :development do
   gem 'haml-rails'
   gem 'rubocop'
+  gem 'rails_best_practices'
 end
 
 group :test do

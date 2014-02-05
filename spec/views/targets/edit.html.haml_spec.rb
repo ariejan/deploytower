@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "targets/new" do
+describe 'targets/new' do
   let(:target) { build_stubbed(:target) }
 
   before(:each) do
@@ -8,11 +8,11 @@ describe "targets/new" do
     render
   end
 
-  it "renders the targets form" do
+  it 'renders the targets form' do
     rendered.should have_selector("form[action='#{target_path(target)}']")
   end
 
-  it "renders the target attribute fields" do
+  it 'renders the target attribute fields' do
     # Use 'Name' vs. 'target_name'
     rendered.should have_field('Name')
     rendered.should have_field('Heroku app name')
@@ -22,8 +22,7 @@ describe "targets/new" do
     rendered.should have_field('Url')
   end
 
-  it "renders a submit button" do
+  it 'renders a submit button' do
     rendered.should have_button('Update Target')
   end
 end
-
