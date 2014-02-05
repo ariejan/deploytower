@@ -1,3 +1,7 @@
+Given(/^I am on the target page$/) do
+  visit "/targets/#{Target.last.id}"
+end
+
 Given(/^([\d+|a]) targets? exists?$/) do |count|
   count = 1 if count == "a"
   FactoryGirl.create_list(:target, count.to_i)

@@ -9,5 +9,14 @@ FactoryGirl.define do
     finished_at nil
 
     state       { "queued" }
+
+    factory :queued_deployment do
+    end
+
+    factory :finished_deployment do
+      started_at  { 10.minutes.ago }
+      finished_at {  7.minutes.ago }
+      state       { "finished" }
+    end
   end
 end

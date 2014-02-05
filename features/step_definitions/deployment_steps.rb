@@ -1,9 +1,5 @@
 Given(/^a deployment is already queued$/) do
-  create(:deployment, target: Target.last)
-end
-
-Given(/^I am on the target page$/) do
-  visit "/targets/#{Target.last.id}"
+  create(:queued_deployment, target: Target.last)
 end
 
 When(/^I click the deploy button$/) do
@@ -22,4 +18,11 @@ Then(/^I should see a new deployment queued$/) do
   deployment = Target.last.deployments.last
   expect(page).to have_css("#deployment_#{deployment.id}")
   expect(page).to have_css("#flash_success", text: "Deployment queued successfully")
+end
+
+Then(/^I see the deploy button is disabled$/) do
+  within('.page-actions') do
+    expect(page).to have_no_link('Deploy')
+    expect(page).to have_css('.btn.disabled', text: 'Deploy')
+  end
 end

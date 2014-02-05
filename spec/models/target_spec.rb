@@ -49,4 +49,26 @@ describe Target do
       end
     end
   end
+
+  describe '#deployable?' do
+    subject(:target) { create :target }
+
+    describe 'is deployable' do
+      it 'by default' do
+        expect(subject).to be_deployable
+      end
+
+      it 'with a finished deployment' do
+        create :finished_deployment, target: target
+        expect(subject).to be_deployable
+      end
+    end
+
+    describe 'is not deployable' do
+      it 'with a queued deployment' do
+        create :queued_deployment, target: target
+        expect(subject).not_to be_deployable
+      end
+    end
+  end
 end
