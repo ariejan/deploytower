@@ -5,7 +5,7 @@ Feature:
 
     Scenario: Add a target
         When I add a new target named "awesome-qa"
-        Then I should be on the target detail page for "awesome-qa"
+        Then I should be on the target page for "awesome-qa"
         And I see the target was created successfully
 
     Scenario: It reports validation errors

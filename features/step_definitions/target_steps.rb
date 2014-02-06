@@ -57,14 +57,12 @@ Then(/^I should see all targets$/) do
   end
 end
 
-# TODO: Remove 'detail'
-Then(/^I should be on the target detail page$/) do
+Then(/^I should be on the target page$/) do
   target = Target.last
   expect_target_details_page(target)
 end
 
-# TODO: Remove 'detail'
-Then(/^I should be on the target detail page for "(.*?)"$/) do |name|
+Then(/^I should be on the target page for "(.*?)"$/) do |name|
   target = Target.where(name: name).first
   expect_target_details_page(target)
 end

@@ -18,8 +18,8 @@ Feature:
         When I visit the target page
         Then I see all targets are sorted alphabetically
 
-    Scenario: Click through to target detail page
+    Scenario: Click through to target page
         Given 1 target exists
         When I visit the target page
         And I click on a target
-        Then I should be on the target detail page
+        Then I should be on the target page

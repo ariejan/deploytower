@@ -14,7 +14,7 @@ Feature: Queue deployments
     Scenario: Queue a new deployment
         Given I am on the target page
         When I click the deploy button
-        Then I should be on the target detail page
+        Then I should be on the target page
         And I should see a new deployment queued
 
     Scenario: Already queued deployment
