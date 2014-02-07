@@ -1,2 +1,10 @@
 %div[deployment]
-  .branch= deployment.branch
+  .branch
+    branch:
+    %span= deployment.branch
+  .revision
+    revision:
+    %span= deployment.revision
+  .state
+    status:
+    %span= deployment.state

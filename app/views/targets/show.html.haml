@@ -1,12 +1,5 @@
 .target
-  %h2= @target.name
-
-  #deployments
-    - if @deployments.any?
-      = render @deployments
-    - else
-      %p.no-data
-        There are no deployments for this app yet!
+  %h1= @target.name
 
   .full.page-actions
     - if @target.deployable?
@@ -15,3 +8,13 @@
       .btn.disabled Deploy
 
     = link_to "Delete", @target, method: :delete, class: "btn red", data: { confirm: "Are you sure about that?" }
+
+  #deployments
+    %h2 Deployments
+
+    - if @deployments.any?
+      = render @deployments
+    - else
+      %p.no-data
+        There are no deployments for this app yet!
+
