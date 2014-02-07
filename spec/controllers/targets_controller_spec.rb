@@ -209,25 +209,22 @@ describe TargetsController do
       end
 
       it 'redirects back to the target' do
-        allow(target).to receive(:deploy!)
+        allow(target).to receive(:deploy!).and_return(true)
         post :deploy, id: target
         expect(response).to redirect_to(target)
+        expect(flash[:success]).not_to be_blank
       end
     end
 
     describe 'with deployments not allowed' do
       before do
-        allow(target).to receive(:deployable?).and_return(false)
-      end
-
-      it 'creates a new queued deployment' do
-        expect(target).not_to receive(:deploy!)
-        post :deploy, id: target
+        allow(target).to receive(:deploy!).and_return(false)
       end
 
       it 'redirects back to the target' do
         post :deploy, id: target
         expect(response).to redirect_to(target)
+        expect(flash[:error]).not_to be_blank
       end
     end
   end

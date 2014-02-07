@@ -31,13 +31,31 @@ describe Target do
   describe '#deploy!' do
     subject(:target) { create :target }
 
-    it 'creates a new deployment' do
-      expect do
-        target.deploy!
-      end.to change(target.deployments, :count).by(1)
+    describe 'when deployable' do
+      before do
+        expect(target).to receive(:deployable?).and_return(true)
+      end
+
+      it 'creates a new deployment' do
+        expect do
+          target.deploy!
+        end.to change(target.deployments, :count).by(1)
+      end
     end
 
-    describe 'queued deployment' do
+    describe 'when not deployable' do
+      before do
+        expect(target).to receive(:deployable?).and_return(false)
+      end
+
+      it 'creates a new deployment' do
+        expect do
+          target.deploy!
+        end.not_to change(target.deployments, :count)
+      end
+    end
+
+    describe 'resulting queued deployment' do
       subject(:deployment) { target.deploy! }
 
       it 'contains the default branch' do

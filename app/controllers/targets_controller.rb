@@ -54,8 +54,7 @@ class TargetsController < ApplicationController
 
   # POST /targets/1/deploy
   def deploy
-    if @target.deployable?
-      @target.deploy!
+    if  @target.deploy!
       redirect_to @target,
         flash: { success: 'Deployment queued successfully' }
     else
