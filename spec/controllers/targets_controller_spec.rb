@@ -36,14 +36,20 @@ describe TargetsController do
 
     describe 'with deployments' do
       let(:deployment) { build_stubbed :deployment }
+      let(:deployments) { [deployment] }
 
       before do
-        allow(target).to receive(:deployments).and_return([deployment])
+        allow(target).to receive(:deployments).and_return(deployments)
+        get :show, id: target
       end
 
       it 'assigns target.deployments to @deployments' do
-        get :show, id: target
-        expect(assigns(:deployments)).to eql([deployment])
+        expect(assigns(:deployments)).to have(1).deployment
+        expect(assigns(:deployments)).to include(deployment)
+      end
+
+      it 'decorates the @deployments collection' do
+        expect(assigns(:deployments)).to be_decorated
       end
     end
   end

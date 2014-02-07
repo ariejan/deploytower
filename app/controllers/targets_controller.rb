@@ -11,7 +11,7 @@ class TargetsController < ApplicationController
 
   # GET /targets/1
   def show
-    @deployments = @target.deployments
+    @deployments = DeploymentDecorator.decorate_collection(@target.deployments)
   end
 
   # GET /targets/new
