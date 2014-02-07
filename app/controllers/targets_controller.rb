@@ -2,7 +2,7 @@
 #
 # This controller does not handle deployments.
 class TargetsController < ApplicationController
-  before_action :set_target, only: [:show, :edit, :update, :destroy]
+  before_action :set_target, only: [:show, :edit, :update, :destroy, :deploy]
 
   # GET /targets
   def index
@@ -11,6 +11,7 @@ class TargetsController < ApplicationController
 
   # GET /targets/1
   def show
+    @deployments = DeploymentDecorator.decorate_collection(@target.deployments)
   end
 
   # GET /targets/new
@@ -49,6 +50,17 @@ class TargetsController < ApplicationController
     @target.destroy
     redirect_to root_path,
       flash: { success: 'Target was successfully deleted.' }
+  end
+
+  # POST /targets/1/deploy
+  def deploy
+    if  @target.deploy!
+      redirect_to @target,
+        flash: { success: 'Deployment queued successfully' }
+    else
+      redirect_to @target,
+        flash: { error: 'Deployment cannot be queued' }
+    end
   end
 
   private

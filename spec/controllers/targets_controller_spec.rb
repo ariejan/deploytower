@@ -33,6 +33,25 @@ describe TargetsController do
     it 'renders the :show view' do
       expect(response).to render_template(:show)
     end
+
+    describe 'with deployments' do
+      let(:deployment) { build_stubbed :deployment }
+      let(:deployments) { [deployment] }
+
+      before do
+        allow(target).to receive(:deployments).and_return(deployments)
+        get :show, id: target
+      end
+
+      it 'assigns target.deployments to @deployments' do
+        expect(assigns(:deployments)).to have(1).deployment
+        expect(assigns(:deployments)).to include(deployment)
+      end
+
+      it 'decorates the @deployments collection' do
+        expect(assigns(:deployments)).to be_decorated
+      end
+    end
   end
 
   describe 'GET #new' do
@@ -46,6 +65,23 @@ describe TargetsController do
 
     it 'render the :new view' do
       expect(response).to render_template(:new)
+    end
+  end
+
+  describe 'GET #edit' do
+    let(:target) { build_stubbed :target }
+
+    before do
+      allow(Target).to receive(:find).and_return(target)
+      get :edit, id: target
+    end
+
+    it 'assigns the requested target to @target' do
+      expect(assigns(:target)).to eql(target)
+    end
+
+    it 'renders the :edit view' do
+      expect(response).to render_template(:edit)
     end
   end
 
@@ -91,23 +127,6 @@ describe TargetsController do
       it 're-renders the :new view' do
         expect(response).to render_template(:new)
       end
-    end
-  end
-
-  describe 'GET #edit' do
-    let(:target) { build_stubbed :target }
-
-    before do
-      allow(Target).to receive(:find).and_return(target)
-      get :edit, id: target
-    end
-
-    it 'assigns the requested target to @target' do
-      expect(assigns(:target)).to eql(target)
-    end
-
-    it 'renders the :edit view' do
-      expect(response).to render_template(:edit)
     end
   end
 
@@ -158,7 +177,7 @@ describe TargetsController do
   end
 
   describe 'DELETE #destroy' do
-    let(:target)     { build_stubbed :target }
+    let(:target) { build_stubbed :target }
 
     before do
       allow(Target).to receive(:find).and_return(target)
@@ -173,6 +192,40 @@ describe TargetsController do
       allow(target).to receive(:destroy)
       delete :destroy, id: target
       expect(response).to redirect_to('/')
+    end
+  end
+
+  describe 'POST #deploy' do
+    let(:target) { build_stubbed :target }
+
+    before do
+      allow(Target).to receive(:find).and_return(target)
+    end
+
+    describe 'with deployments allowed' do
+      it 'creates a new queued deployment' do
+        expect(target).to receive(:deploy!)
+        post :deploy, id: target
+      end
+
+      it 'redirects back to the target' do
+        allow(target).to receive(:deploy!).and_return(true)
+        post :deploy, id: target
+        expect(response).to redirect_to(target)
+        expect(flash[:success]).not_to be_blank
+      end
+    end
+
+    describe 'with deployments not allowed' do
+      before do
+        allow(target).to receive(:deploy!).and_return(false)
+      end
+
+      it 'redirects back to the target' do
+        post :deploy, id: target
+        expect(response).to redirect_to(target)
+        expect(flash[:error]).not_to be_blank
+      end
     end
   end
 end

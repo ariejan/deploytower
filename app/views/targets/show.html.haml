@@ -1,10 +1,20 @@
 .target
-  %h2= @target.name
-
-  #deployments
-    %p.no-data
-      This app hasn't been deployed yet!
+  %h1= @target.name
 
   .full.page-actions
-    = link_to "Deploy!", "#", class: "btn"
+    - if @target.deployable?
+      = link_to "Deploy", deploy_target_path(@target), method: :post, class: "btn"
+    - else
+      .btn.disabled Deploy
+
     = link_to "Delete", @target, method: :delete, class: "btn red", data: { confirm: "Are you sure about that?" }
+
+  #deployments
+    %h2 Deployments
+
+    - if @deployments.any?
+      = render @deployments
+    - else
+      %p.no-data
+        There are no deployments for this app yet!
+

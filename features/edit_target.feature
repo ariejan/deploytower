@@ -8,7 +8,7 @@ Feature:
 
     Scenario: Update target name
         When I update the target "my-target" to "your-target"
-        Then I should be on the target detail page for "your-target"
+        Then I should be on the target page for "your-target"
         And I see the target was updated successfully
     
     Scenario: It reports validation errors

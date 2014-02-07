@@ -1,4 +1,9 @@
-Given(/^(\d+) targets? exists?$/) do |count|
+Given(/^I am on the target page$/) do
+  visit "/targets/#{Target.last.id}"
+end
+
+Given(/^([\d+|a]) targets? exists?$/) do |count|
+  count = 1 if count == 'a'
   FactoryGirl.create_list(:target, count.to_i)
 end
 
@@ -52,12 +57,12 @@ Then(/^I should see all targets$/) do
   end
 end
 
-Then(/^I should be on the target detail page$/) do
-  target = Target.first
+Then(/^I should be on the target page$/) do
+  target = Target.last
   expect_target_details_page(target)
 end
 
-Then(/^I should be on the target detail page for "(.*?)"$/) do |name|
+Then(/^I should be on the target page for "(.*?)"$/) do |name|
   target = Target.where(name: name).first
   expect_target_details_page(target)
 end

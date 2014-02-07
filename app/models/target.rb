@@ -12,7 +12,23 @@
 #    deployment
 #
 class Target < ActiveRecord::Base
+  # Queues a new Deployment for this target.
+  def deploy!
+    deployments.create!(
+      branch: git_default_branch,
+      state:  'queued'
+    ) if deployable?
+  end
+
+  # Returns true if new deployments for this
+  # target are allowed to be queued.
+  def deployable?
+    deployments.none? { |d| d.queued? }
+  end
+
   default_scope { order('name ASC') }
+
+  has_many :deployments
 
   validates :name,
             presence: true

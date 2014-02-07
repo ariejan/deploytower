@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140131132829) do
+ActiveRecord::Schema.define(version: 20140207161629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "deployments", force: true do |t|
+    t.integer  "target_id",                      null: false
+    t.string   "branch"
+    t.string   "reference"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.string   "state",       default: "queued"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "targets", force: true do |t|
     t.string "name"
