@@ -32,7 +32,6 @@ gem 'haml'
 gem 'simple_form'
 gem "queue_classic", "3.0.0beta"
 
-gem 'aasm'
 gem 'draper'
 
 group :doc do

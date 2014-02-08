@@ -6,10 +6,18 @@ describe DeploymentOperation do
 
     before do
       allow(Deployment).to receive(:find).and_return(deployment)
+
+      allow(deployment).to receive(:deploying!)
+      allow(deployment).to receive(:finished!)
     end
 
     it 'updates the state to "deploying"' do
       expect(deployment).to receive(:deploying!)
+      DeploymentOperation.perform(deployment.id)
+    end
+
+    it 'updates the state to "finished"' do
+      expect(deployment).to receive(:finished!)
       DeploymentOperation.perform(deployment.id)
     end
   end

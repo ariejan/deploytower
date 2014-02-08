@@ -2,18 +2,18 @@
 # a queued or finished deployment for
 # the specified target.
 class Deployment < ActiveRecord::Base
-  include AASM
 
   belongs_to :target
 
-  aasm column: :state do
-    state :queued, initial: true
-    state :deploying
-    state :finished
+  def queued?
+    state == 'queued'
+  end
 
-    event :deploying! do
-      transitions from: :queued,
-        to: :deploying
-    end
+  def deploying!
+    update(state: 'deploying')
+  end
+
+  def finished!
+    update(state: 'finished')
   end
 end
