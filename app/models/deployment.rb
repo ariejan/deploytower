@@ -8,6 +8,12 @@ class Deployment < ActiveRecord::Base
 
   aasm column: :state do
     state :queued, initial: true
+    state :deploying
     state :finished
+
+    event :deploying! do
+      transitions from: :queued,
+        to: :deploying
+    end
   end
 end
