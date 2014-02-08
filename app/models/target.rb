@@ -14,10 +14,7 @@
 class Target < ActiveRecord::Base
   # Queues a new Deployment for this target.
   def deploy!
-    deployments.create!(
-      branch: git_default_branch,
-      state:  'queued'
-    ) if deployable?
+    DeploymentService.deploy!(self)
   end
 
   # Returns true if new deployments for this

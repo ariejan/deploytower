@@ -31,40 +31,9 @@ describe Target do
   describe '#deploy!' do
     subject(:target) { create :target }
 
-    describe 'when deployable' do
-      before do
-        expect(target).to receive(:deployable?).and_return(true)
-      end
-
-      it 'creates a new deployment' do
-        expect do
-          target.deploy!
-        end.to change(target.deployments, :count).by(1)
-      end
-    end
-
-    describe 'when not deployable' do
-      before do
-        expect(target).to receive(:deployable?).and_return(false)
-      end
-
-      it 'creates a new deployment' do
-        expect do
-          target.deploy!
-        end.not_to change(target.deployments, :count)
-      end
-    end
-
-    describe 'resulting queued deployment' do
-      subject(:deployment) { target.deploy! }
-
-      it 'contains the default branch' do
-        expect(subject.branch).to eql(target.git_default_branch)
-      end
-
-      it "has the state 'queued'" do
-        expect(subject.state).to eql('queued')
-      end
+    it 'creates a new deployment' do
+      expect(DeploymentService).to receive(:deploy!).with(target)
+      target.deploy!
     end
   end
 

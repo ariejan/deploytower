@@ -30,8 +30,8 @@ gem 'turbolinks'
 
 gem 'haml'
 gem 'simple_form'
+gem "queue_classic", "3.0.0beta"
 
-gem 'aasm'
 gem 'draper'
 
 group :doc do
@@ -59,4 +59,5 @@ group :development, :test do
   gem 'rake'
   gem 'rspec-rails', '~> 2.14.1'
   gem 'factory_girl_rails'
+  gem 'dotenv-rails'
 end
